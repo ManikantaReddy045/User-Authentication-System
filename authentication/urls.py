@@ -20,7 +20,7 @@ from django.urls import path,include
 from django.views.generic import TemplateView, RedirectView
 from dj_rest_auth.registration.views import VerifyEmailView
 from django.contrib.auth import views as auth_views
-from dj_rest_auth.views import PasswordResetConfirmView,PasswordResetView,PasswordChangeView,UserDetailsView
+from dj_rest_auth.views import PasswordResetConfirmView,PasswordResetView,PasswordChangeView,UserDetailsView,LoginView,LogoutView,UserDetailsSerializer
 
 
 
@@ -28,12 +28,14 @@ from dj_rest_auth.views import PasswordResetConfirmView,PasswordResetView,Passwo
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    path('dj-rest-auth/', include('dj_rest_auth.urls')),
-    path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-    path('dj-rest-auth/account-confirm-email/', VerifyEmailView.as_view(), name='account_email_verification_sent'),
-    path('dj-rest-auth/password-reset/',PasswordResetView.as_view(),name="password_reset"),
-    path('dj-rest-auth/password-change/',PasswordChangeView.as_view(),name="password_change"),
-    path('dj-rest-auth/password/reset/confirm/<uidb64>/<token>/',PasswordResetConfirmView.as_view(),name="password_reset_confirm"),
-    path('dj-rest-auth/user-details/',UserDetailsView.as_view(),name="user_details_view"),
+    path('api/v1', include('dj_rest_auth.urls')),
+    path('api/v1/registration/', include('dj_rest_auth.registration.urls')),
+    path('api/v1/account-confirm-email/', VerifyEmailView.as_view(), name='account_email_verification_sent'),
+    path('api/v1/Login/', LoginView.as_view(), name='Login'),
+    path('api/v1/Logout/', LogoutView.as_view(), name='Logout'),
+    path('api/v1/password-reset/',PasswordResetView.as_view(),name="password_reset"),
+    path('api/v1/password-change/',PasswordChangeView.as_view(),name="password_change"),
+    path('api/v1/password/reset/confirm/<uidb64>/<token>/',PasswordResetConfirmView.as_view(),name="password_reset_confirm"),
+    path('api/v1/user-details/',UserDetailsView.as_view(),name="user_details_view"),
     path('users/', include('allauth.urls')),
 ]
